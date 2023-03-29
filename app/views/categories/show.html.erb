@@ -1,0 +1,36 @@
+<h1>Categories#show</h1>
+<h2>Category</h2>
+<%= render "shared/flash_messages", flash: flash %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+    <td><%= @category.name %></td>
+    <td><%= @category.description %></td>
+  </tr>
+</table>
+<hr>
+<h3>Todos</h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <% @category.todos.each do |todo| %>
+    <tr>
+      <td><%= todo.name %></td>
+      <td><%= todo.description %></td>
+      <td><%= link_to "delete", todo_path(todo.id), method: :delete, 
+                data:{ "turbo_method": :delete, turbo_confirm: "You Sure?" } %></td>
+    </tr>
+  <% end %>
+</table>
+<hr>
+<div>
+  <%= link_to "back", categories_path %> | 
+  <%= link_to "edit", edit_category_path(@category) %> | 
+  <%= link_to "add todo", todo_on_category_path(@category) %> | 
+  <%= link_to "delete category", category_path, method: :delete,
+            data:{ "turbo_method": :delete, turbo_confirm: "You Sure?" } %>
+</div>
