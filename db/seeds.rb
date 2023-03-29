@@ -5,19 +5,17 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-Category.create!(
-  name: "rails tutorial",
-  description: "self study rails tutorial"
-)
+10.times.each do
+  Category.create!(
+    name: Faker::Educator.university,
+    description: Faker::Educator.degree
+  )
+end
 
-Todo.create!(
-  name: "phase 1",
-  description: "zero to deploy",
-  category_id: 1
-)
-
-Todo.create!(
-  name: "phase 2",
-  description: "Toy Application",
-  category_id: 1
-)
+30.times.each do
+  Todo.create!(
+    name: Faker::Educator.course_name,
+    description: Faker::Educator.subject,
+    category_id: rand(1..10)
+  )
+end
