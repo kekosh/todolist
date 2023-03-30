@@ -1,32 +1,34 @@
-<h1>Categories#edit</h1>
+<% provide(:title, "Edit Category and todos")%>
+<h1>Edit Category and todos</h1>
+<div><%= link_to "back", category_path(params[:id]) %></div>
 
-<%= form_with(model: @category) do |f| %>
-  <%= render "shared/flash_messages", flash: flash %>
-  <%= render "shared/error_messages", object: f.object %>
-  <div>
-    <%= f.label :name %> : 
-    <%= f.text_field :name, autofocus:true, autocomplete: false %>
-  </div>
-  <div>
-    <%= f.label :description %> : 
-    <%= f.text_field :description, autofocus:true, autocomplete: false %>
-  </div>
-
-  <hr>
-  <h2>Todo</h2>
-  <%= f.fields_for :todos do |todo| %>
-    <p><%= field_index_number(todo.index) %></p>
+<div>
+  <%= form_with(model: @category) do |f| %>
+    <%= render "shared/flash_messages", flash: flash %>
+    <%= render "shared/error_messages", object: f.object %>
+    <h2>Category</h2>
     <div>
-      <%= todo.label :name %>
-      <%= todo.text_field :name, autofocus: true, autocomplete: true %>
+      <%= f.label :name %> : 
+      <%= f.text_field :name, autofocus:true, autocomplete: false, required: true %>
     </div>
     <div>
-      <%= todo.label :description %>
-      <%= todo.text_field :description, autofocus: true, autocomplete: true %>
+      <%= f.label :description %> : 
+      <%= f.text_field :description, autofocus:true, autocomplete: false %>
     </div>
-  <% end%>
-  <%= f.submit %>
-<% end %>
 
-<%= link_to "back", category_path(params[:id]) %>
-
+    <hr>
+    <h2>Todo</h2>
+    <%= f.fields_for :todos do |todo| %>
+      <p><%= field_index_number(todo.index) %></p>
+      <div>
+        <%= todo.label :name %>
+        <%= todo.text_field :name, autofocus: true, autocomplete: true %>
+      </div>
+      <div>
+        <%= todo.label :description %>
+        <%= todo.text_field :description, autofocus: true, autocomplete: true %>
+      </div>
+    <% end%>
+    <%= f.submit %>
+  <% end %>
+</div>

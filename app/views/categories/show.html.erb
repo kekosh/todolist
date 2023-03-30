@@ -1,6 +1,16 @@
-<h1>Categories#show</h1>
-<h2>Category</h2>
+<% provide(:title, "Show Categories")%>
+<h1>Category and todos</h1>
 <%= render "shared/flash_messages", flash: flash %>
+<div>
+  <%= link_to "back", categories_path %> | 
+  <%= link_to "edit", edit_category_path(@category) %> | 
+  <%= link_to "add todo", todo_on_category_path(@category) %> | 
+  <%= link_to "delete category", category_path, method: :delete,
+            data:{ "turbo_method": :delete, turbo_confirm: "delete Category and todo list. You Sure?" } %>
+</div>
+
+<hr>
+<h2>Category</h2>
 <table>
   <tr>
     <th>Name</th>
@@ -22,15 +32,7 @@
       <td><%= todo.name %></td>
       <td><%= todo.description %></td>
       <td><%= link_to "delete", todo_path(todo.id), method: :delete, 
-                data:{ "turbo_method": :delete, turbo_confirm: "You Sure?" } %></td>
+                data:{ "turbo_method": :delete, turbo_confirm: "this todo will dlete. You Sure?" } %></td>
     </tr>
   <% end %>
 </table>
-<hr>
-<div>
-  <%= link_to "back", categories_path %> | 
-  <%= link_to "edit", edit_category_path(@category) %> | 
-  <%= link_to "add todo", todo_on_category_path(@category) %> | 
-  <%= link_to "delete category", category_path, method: :delete,
-            data:{ "turbo_method": :delete, turbo_confirm: "You Sure?" } %>
-</div>

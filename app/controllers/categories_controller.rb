@@ -30,7 +30,10 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_todo_permit_params)
+
+    # delete blank todo fields data
+    params = delete_blank_field_data(category_todo_permit_params)
+    @category = Category.new(params)
     if @category.save
       flash[:success] = "New Category Registerd!"
       redirect_to categories_path
@@ -42,15 +45,21 @@ class CategoriesController < ApplicationController
   def destroy
     category = Category.find(params[:id])
     category.destroy
-    flash[:success] = "Category Deleted."
+    flash[:success] = "Category and todos were Deleted."
     redirect_to categories_path, status: :see_other
+  end
+
+    def delete_blank_field_data(permit_params)
+    permit_params[:todos_attributes].each do |todo|
+      if todo[1][:name].blank?
+        permit_params[:todos_attributes].delete(todo[0])
+      end
+    end
+    permit_params
   end
 
   private
     def category_todo_permit_params
       params.require(:category).permit(:id, :name, :description, todos_attributes:[:id, :name, :description])
     end
-
-
-
 end

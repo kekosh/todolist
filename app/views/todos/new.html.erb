@@ -1,18 +1,28 @@
-<h1>Todos#new</h1>
-<%= form_with(model: @todo) do |f| %>
-  <%= render "shared/flash_messages", flash: flash %>
-  <%= render "shared/error_messages", object: f.object %>
-
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, autocomplete: true %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description, autofocus: true, autocomplete: true %>
-  </div>
-  <%= f.hidden_field :category_id, value: @category_id %>
-  <%= f.submit "Save", date:{ turbo_confirm: "You Sure?"} %>
-<% end %>
+<% provide(:title, "add new todo") %>
+<h1>New Todo</h1>
 <%= link_to "back", category_path(@category_id) %>
+<hr>
+
+<div>
+  <%= form_with(model: @todo) do |f| %>
+    <%= render "shared/flash_messages", flash: flash %>
+    <%= render "shared/error_messages", object: f.object %>
+
+    <div>
+      Category: <%= Category.find(@category_id).name %>
+    </div>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, autocomplete: true, required: true %>
+    </div>
+    <div>
+      <%= f.label :description %>
+      <%= f.text_field :description, autofocus: true, autocomplete: true %>
+    </div>
+      <%= f.hidden_field :category_id, value: @category_id %>
+    <div>
+      <%= f.submit "Save", date:{ turbo_confirm: "You Sure?"} %>
+    </div>
+  <% end %>
+</div>
 

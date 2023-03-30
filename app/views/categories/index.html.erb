@@ -1,5 +1,8 @@
-<h1>Categories#index</h1>
-<%= render "shared/flash_messages", flash %>
+<% provide(:title, "Category and Todo") %>
+<h1>Categories list</h1>
+<div><%= render "shared/flash_messages", flash %></div>
+<%= link_to  "Create New Category", new_category_path %>
+<hr>
 <table>
   <tr>
     <th>Category</th>
@@ -14,6 +17,3 @@
     </tr>
   <% end %>
 </table>
-<hr>
-<%= link_to  "Create New Category", new_category_path %>
-
